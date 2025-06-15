@@ -1,7 +1,9 @@
-import { Box, Paper } from "@mui/material";
+import { Box, Divider, Paper, Stack } from "@mui/material";
 import useArrayContext from "../../Contexts/ArrayContext";
 import Table from "../Table/Table";
 import { useState } from "react";
+import config from "./Config";
+import Options from "./Options";
 
 export default function Matrix({ identifier }) {
     const { matrixData, getMatrix } = useArrayContext();
@@ -9,6 +11,8 @@ export default function Matrix({ identifier }) {
     let matrix = getMatrix(identifier);
 
     const headers = matrix.array[0].map((col, i) => `A${i + 1}`);
+    const isSolutionMatrix = identifier === config.maxtrixSolution;
+
     return (
         <Box
             onMouseEnter={e => setIsMouseOver(true)}
@@ -23,12 +27,27 @@ export default function Matrix({ identifier }) {
                     padding: "1rem"
                 }}
             >
-                    <Table 
-                        rows={matrix.getRows()}
-                        columns={matrix.getColumns()}
-                        headrs={headers}
-                        data={matrix.array}
-                    />
+                    <Stack
+                        gap={1}
+                    >
+                        <Table
+                            disabled={isSolutionMatrix} 
+                            rows={matrix.getRows()}
+                            columns={matrix.getColumns()}
+                            headrs={headers}
+                            data={matrix.array}
+                        />
+                        <Divider />
+                        <Box
+                            display={"flex"}
+                            justifyContent={"start"}
+                            alignContent={"start"}
+                        >
+                            <Options 
+                                matrix={matrix}
+                            />
+                        </Box>
+                    </Stack>
             </Paper>
         </Box>
     );

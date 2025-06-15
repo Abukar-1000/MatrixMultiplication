@@ -18,6 +18,7 @@ function App() {
         >
           <Matrix identifier={config.maxtrixA}/>
           <Matrix identifier={config.maxtrixB}/>
+          <Matrix identifier={config.maxtrixSolution}/>
         </Stack>
       </Box>
 

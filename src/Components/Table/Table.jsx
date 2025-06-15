@@ -3,7 +3,7 @@ import Header from "./Header";
 import Row from "./Row";
 
 
-export default function Table({ rows = 3, columns = 3, headrs = [], data = []}) {
+export default function Table({ rows = 3, columns = 3, headrs = [], data = [], disabled = false}) {
     
     return (
         <Box>
@@ -18,7 +18,7 @@ export default function Table({ rows = 3, columns = 3, headrs = [], data = []}) 
 
                 {
                     data && (
-                        data.map((data, i) => (<Row row={i} data={data}/>))
+                        data.map((data, i) => (<Row row={i} data={data} disabled={disabled}/>))
                     )
                 }
             </table>

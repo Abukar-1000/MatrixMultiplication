@@ -20,7 +20,7 @@ export default class Mat {
     }
 
     getColumns() {
-        return this.rows;
+        return this.cols;
     }
 
     getDimensions() {

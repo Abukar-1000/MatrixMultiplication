@@ -7,7 +7,7 @@ function isCellUnchanged(prevProps, nextProps) {
 }
 
 const Cell = memo(
-    ({ row, column, value }) => {
+    ({ row, column, value, disabled }) => {
         const [_value, setValue] = useState(value);
         
         return (
@@ -21,6 +21,7 @@ const Cell = memo(
                     }}
                     id={`${row}-${column}`}
                     color="secondary"
+                    disabled={disabled}
                     size="small"
                 />
             </td>

@@ -11,14 +11,24 @@ const ArrayContext = createContext({
 export function ArrayContextProvider({ children }) {
     const [ matrixData, setMatrixData ] = useState({
         matrixA: {
-            width: 3,
-            height: 3,
-            mat: new Mat(3,3)
+            mat: new Mat(
+                config.default.rows,
+                config.default.columns
+            )
         },
         matrixB: {
-            width: 3,
-            height: 3,
-            mat: new Mat(3,3, 2)
+            mat: new Mat(
+                config.default.rows,
+                config.default.columns,
+                2
+            )
+        },
+        solution: {
+            mat: new Mat(
+                config.default.rows,
+                config.default.columns,
+                0
+            )
         },
     });
 

@@ -3,9 +3,10 @@
 const config = {
     maxtrixA: "Matrix-1",
     maxtrixB: "Matrix-2",
+    maxtrixSolution: "Matrix-Solution",
     default: {
-        width: 3,
-        height: 3,
+        rows: 3,
+        columns: 3,
         fill: true
     }
 }
