@@ -1,20 +1,34 @@
 import { Box, Paper } from "@mui/material";
 import useArrayContext from "../../Contexts/ArrayContext";
-import Mat from "../../Objects/Matrix";
+import Table from "../Table/Table";
+import { useState } from "react";
 
-export default function Matrix() {
-    const { matrixData } = useArrayContext();
-    // console.log(matrixData)
+export default function Matrix({ identifier }) {
+    const { matrixData, getMatrix } = useArrayContext();
+    const [isMouseOver, setIsMouseOver] = useState(false);
+    let matrix = getMatrix(identifier);
 
-    let matrixA = new Mat(3,3,2);
-    let matrixB = new Mat(3,3,3);
-    let matrixC = matrixA.multiply(matrixB);
-    console.log(matrixC.array);
-
+    const headers = matrix.array[0].map((col, i) => `A${i + 1}`);
     return (
-        <Box>
-            <Paper>
-                
+        <Box
+            onMouseEnter={e => setIsMouseOver(true)}
+            onMouseLeave={e => setIsMouseOver(false)}
+            sx={{
+                maxWidth: "fit-content"
+            }}
+        >
+            <Paper 
+                elevation={isMouseOver ? 24 : 1}
+                sx={{
+                    padding: "1rem"
+                }}
+            >
+                    <Table 
+                        rows={matrix.getRows()}
+                        columns={matrix.getColumns()}
+                        headrs={headers}
+                        data={matrix.array}
+                    />
             </Paper>
         </Box>
     );
