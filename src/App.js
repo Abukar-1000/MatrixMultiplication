@@ -2,18 +2,19 @@ import logo from './logo.svg';
 import './App.css';
 import Box from '@mui/material/Box';
 import Background from './Background/Background';
-import { ThemeProvider } from '@mui/material/styles';
-import darkTheme from "./Theme/darkTheme"
+import Providers from './Providers';
+import Matrix from './Components/Matrix/Matrix';
 
 function App() {
   return (
-    <ThemeProvider theme={darkTheme}>
+    <Providers>
 
       <Box>
         <Background></Background>
+        <Matrix />
       </Box>
 
-    </ThemeProvider>
+    </Providers>
   );
 }
 
