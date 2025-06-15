@@ -19,7 +19,6 @@ export default function Background() {
                     height: "inherit",
                 }}
             >
-                <Typography>Yolo</Typography>
             </Paper>
         </Box>
     );
