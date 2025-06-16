@@ -1,16 +1,27 @@
 import { Chip, Stack, TextField } from "@mui/material";
 import { useState } from "react";
+import useArrayContext from "../../Contexts/ArrayContext";
 
 
-export default function Options({ matrix, isSolutionMatrix }) {
+export default function Options({ identifier, isSolutionMatrix }) {
+    
+    const { getMatrix, reshapeMatrix } = useArrayContext();
+    const matrix = getMatrix(identifier);
     const [dimensions, setDimensions] = useState({
         rows: matrix.getRows(),
-        cols: matrix.getColumns()
+        columns: matrix.getColumns()
     });
 
     const setRows = e => {
-        const newRows = e.target.value;
+        const newRows = Number(e.target.value);
         matrix.setRows(newRows);
+        reshapeMatrix(
+            {
+                rows: newRows,
+                columns: dimensions.columns
+            }, 
+            identifier
+        );
         setDimensions(prev => ({
             ...prev,
             rows: newRows
@@ -18,11 +29,18 @@ export default function Options({ matrix, isSolutionMatrix }) {
     }
 
     const setCols = e => {
-        const newCols = e.target.value;
+        const newCols = Number(e.target.value);
         matrix.setColumns(newCols);
+        reshapeMatrix(
+            {
+                rows: dimensions.rows,
+                columns: newCols
+            }, 
+            identifier
+        )
         setDimensions(prev => ({
             ...prev,
-            cols: newCols
+            columns: newCols
         }));
     }
 
@@ -59,7 +77,7 @@ export default function Options({ matrix, isSolutionMatrix }) {
                 hiddenLabel
                 disabled={isSolutionMatrix}
                 onChange={setCols}
-                value={dimensions.cols}
+                value={dimensions.columns}
                 color="secondary"
                 size="small"
                 sx={{

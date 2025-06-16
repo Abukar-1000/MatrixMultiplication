@@ -1,7 +1,7 @@
 import { Paper, Typography } from '@mui/material';
 import Box from '@mui/material/Box';
 
-export default function Background() {
+export default function Background({children}) {
 
     return (
         <Box
@@ -19,6 +19,7 @@ export default function Background() {
                     height: "inherit",
                 }}
             >
+                {children}
             </Paper>
         </Box>
     );

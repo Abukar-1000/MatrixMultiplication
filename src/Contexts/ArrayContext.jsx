@@ -11,28 +11,36 @@ const ArrayContext = createContext({
 export function ArrayContextProvider({ children }) {
     const [ matrixData, setMatrixData ] = useState({
         matrixA: {
+            rows: config.default.rows, 
+            columns: config.default.columns, 
             mat: new Mat(
                 config.default.rows,
                 config.default.columns
             )
         },
         matrixB: {
+            rows: config.default.rows, 
+            columns: config.default.columns,
             mat: new Mat(
                 config.default.rows,
-                config.default.columns,
-                2
+                config.default.columns
             )
         },
         solution: {
+            rows: config.default.rows, 
+            columns: config.default.columns,
             mat: new Mat(
                 config.default.rows,
-                config.default.columns,
-                0
+                config.default.columns
             )
         },
     });
 
     const getMatrix = identifier => {
+        if (identifier === config.maxtrixSolution) {
+            return matrixData.solution.mat;
+        }
+
         if (identifier === config.maxtrixA) {
             return matrixData.matrixA.mat;
         }
@@ -40,11 +48,57 @@ export function ArrayContextProvider({ children }) {
         return matrixData.matrixB.mat;
     }
 
+    const setSolutionMatrix = () => {
+        const matrixA = getMatrix(config.maxtrixA);
+        const maxtrixB = getMatrix(config.maxtrixB);
+        const solutionMatrix = matrixA.multiply(maxtrixB);
+
+        setMatrixData(prev => ({
+            ...prev,
+            solution: {
+                rows: solutionMatrix.getRows(),
+                columns: solutionMatrix.getColumns(),
+                mat: solutionMatrix
+            }
+        }));
+    }
+
+    const reshapeMatrix = (dimensions, identifier) => {
+        const matrix = getMatrix(identifier);
+        matrix.setRows(dimensions.rows);
+        matrix.setColumns(dimensions.columns);
+
+        setMatrixData(prev => ({
+            ...prev,
+            [identifier]: {
+                mat: matrix,
+                ...dimensions
+            }
+        }))
+    }
+
+    const setMatrixValue = (identifier, row, column, value) => {
+        const matrix = getMatrix(identifier);
+        matrix.setValue(row, column, value);
+
+        setMatrixData(prev => ({
+            ...prev,
+            [identifier]: {
+                mat: matrix,
+                rows: matrix.getRows(),
+                columns: matrix.getColumns()
+            }
+        }))
+    }
+
     return (
         <ArrayContext.Provider value={{
             matrixData,
             getMatrix,
-            setMatrixData
+            setMatrixData,
+            reshapeMatrix,
+            setSolutionMatrix,
+            setMatrixValue
         }}>
             { children }
         </ArrayContext.Provider>

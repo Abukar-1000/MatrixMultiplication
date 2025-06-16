@@ -5,6 +5,7 @@ export default class Mat {
     constructor(rows = 3, cols = 3, fillValue = 0) {
         this.rows = rows;
         this.cols = cols;
+        this.fillValue = fillValue;
         this.array = new Array(rows);
         this.#buildArray(fillValue);
     }
@@ -71,12 +72,44 @@ export default class Mat {
             throw new Error(`Must provide a positive row arguement. Got ${_rows}`);
         }
 
+        let difference = _rows - this.rows;
+        if (difference > 0) {
+            for (let i = 0; i < difference; ++i) {
+                const newRow = new Array(this.cols).fill(this.fillValue);
+                this.array.push(newRow);
+            }
+        }
+        else if (difference < 0) {
+            difference *= -1;
+            for (let i = 0; i < difference; ++i) {
+                this.array.pop();
+            }
+        }
+
         this.rows = _rows;
     }
-
+    
     setColumns(_cols = 3) {
         if (_cols < 0) {
             throw new Error(`Must provide a positive column arguement. Got ${_cols}`);
+        }
+        
+        let difference = _cols - this.cols;
+        if (difference > 0) {
+            for (let i = 0; i < this.rows; ++i) {
+                for (let j = 0; j < difference; ++j) {
+                    this.array[i].push(this.fillValue);
+                }
+            }
+        }
+        
+        else if (difference < 0) {
+            difference *= -1;
+            for (let i = 0; i < this.rows; ++i) {
+                for (let j = 0; j < difference; ++j) {
+                    this.array[i].pop();
+                }
+            }
         }
         
         this.cols = _cols;

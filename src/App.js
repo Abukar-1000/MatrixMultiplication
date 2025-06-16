@@ -5,21 +5,26 @@ import Background from './Background/Background';
 import Providers from './Providers';
 import Matrix from './Components/Matrix/Matrix';
 import config from "./Components/Matrix/Config";
-import { Stack } from '@mui/material';
+import { Container, Stack } from '@mui/material';
+import SolveButton from './Components/Matrix/SolveButton';
 
 function App() {
   return (
     <Providers>
 
       <Box>
-        <Background></Background>
-        <Stack
-          gap={1}
-        >
-          <Matrix identifier={config.maxtrixA}/>
-          <Matrix identifier={config.maxtrixB}/>
-          <Matrix identifier={config.maxtrixSolution}/>
-        </Stack>
+        <Background>
+          <Container maxWidth="xl">
+            <Stack
+              gap={1}
+            >
+              <Matrix identifier={config.maxtrixA}/>
+              <Matrix identifier={config.maxtrixB}/>
+              <SolveButton />
+              <Matrix identifier={config.maxtrixSolution}/>
+            </Stack>
+          </Container>
+        </Background>
       </Box>
 
     </Providers>

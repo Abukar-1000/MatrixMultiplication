@@ -8,13 +8,14 @@ import Options from "./Options";
 export default function Matrix({ identifier }) {
     const { matrixData, getMatrix } = useArrayContext();
     const [isMouseOver, setIsMouseOver] = useState(false);
-    let matrix = getMatrix(identifier);
+    const matrix = getMatrix(identifier);
 
     const headers = matrix.array[0].map((col, i) => `A${i + 1}`);
     const isSolutionMatrix = identifier === config.maxtrixSolution;
-
+    
     return (
         <Box
+            key={`${identifier}-${matrix.getRows()}-${matrix.getColumns()}`}
             onMouseEnter={e => setIsMouseOver(true)}
             onMouseLeave={e => setIsMouseOver(false)}
             sx={{
@@ -31,11 +32,12 @@ export default function Matrix({ identifier }) {
                         gap={1}
                     >
                         <Table
+                            identifier={identifier}
                             disabled={isSolutionMatrix} 
                             rows={matrix.getRows()}
                             columns={matrix.getColumns()}
                             headrs={headers}
-                            data={matrix.array}
+                            matrix={matrix}
                         />
                         <Divider />
                         <Box
@@ -44,7 +46,7 @@ export default function Matrix({ identifier }) {
                             alignContent={"start"}
                         >
                             <Options 
-                                matrix={matrix}
+                                identifier={identifier}
                             />
                         </Box>
                     </Stack>

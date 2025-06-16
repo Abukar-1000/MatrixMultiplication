@@ -1,9 +1,9 @@
 
 
 const config = {
-    maxtrixA: "Matrix-1",
-    maxtrixB: "Matrix-2",
-    maxtrixSolution: "Matrix-Solution",
+    maxtrixA: "matrixA",
+    maxtrixB: "matrixB",
+    maxtrixSolution: "solution",
     default: {
         rows: 3,
         columns: 3,

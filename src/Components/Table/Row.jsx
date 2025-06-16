@@ -1,8 +1,9 @@
+import { useEffect } from "react";
 import Cell from "./Cell";
 
 
 
-export default function Row({ row = undefined, data = new Array(), disabled = false }) {
+export default function Row({ row = undefined, data = new Array(), disabled = false, identifier }) {
 
     return (
         <tr>
@@ -10,6 +11,7 @@ export default function Row({ row = undefined, data = new Array(), disabled = fa
                 data.length && (
                     data.map((entry, column) => (
                         <Cell
+                            identifier={identifier}
                             disabled={disabled}
                             row={row}
                             column={column}

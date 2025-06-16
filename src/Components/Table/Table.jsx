@@ -3,11 +3,12 @@ import Header from "./Header";
 import Row from "./Row";
 
 
-export default function Table({ rows = 3, columns = 3, headrs = [], data = [], disabled = false}) {
+export default function Table({ rows = 3, columns = 3, headrs = [], matrix = undefined, disabled = false, identifier}) {
     
+    const data = matrix.array;
     return (
         <Box>
-            <table>
+            <table key={`Table-${identifier}-${rows}-${columns}`}>
                 <tr>
                     {
                         headrs && (
@@ -18,7 +19,7 @@ export default function Table({ rows = 3, columns = 3, headrs = [], data = [], d
 
                 {
                     data && (
-                        data.map((data, i) => (<Row row={i} data={data} disabled={disabled}/>))
+                        data.map((data, i) => (<Row row={i} data={data} disabled={disabled} identifier={identifier}/>))
                     )
                 }
             </table>
