@@ -7,7 +7,6 @@ export default function Background({children}) {
         <Box
             sx={{
                 width: "100dvw",
-                height: "100dvh",
                 position: "absolute",
                 zIndex: -1
             }}

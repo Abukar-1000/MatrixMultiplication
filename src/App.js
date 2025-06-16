@@ -16,7 +16,7 @@ function App() {
         <Background>
           <Container maxWidth="xl">
             <Stack
-              gap={1}
+              gap={3}
             >
               <Matrix identifier={config.maxtrixA}/>
               <Matrix identifier={config.maxtrixB}/>
